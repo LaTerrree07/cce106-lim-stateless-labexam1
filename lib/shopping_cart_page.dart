@@ -4,6 +4,16 @@ const cartBlue = Color(0xFF1769F3);
 const cartInk = Color(0xFF111F47);
 const cartBorder = Color(0xFFDCE4F0);
 const cartPaleBlue = Color(0xFFDCEBFF);
+const cartBackground = Color(0xFFF5F7FB);
+const cartSubtext = Color(0xFF64708A);
+const cartIconBlue = Color(0xFF175497);
+const cartIconMuted = Color(0xFF707988);
+
+const cartCardDecoration = BoxDecoration(
+  color: Colors.white,
+  border: Border.fromBorderSide(BorderSide(color: cartBorder)),
+  borderRadius: BorderRadius.all(Radius.circular(10)),
+);
 
 class ShoppingCartPage extends StatelessWidget {
   const ShoppingCartPage({super.key});
@@ -11,7 +21,7 @@ class ShoppingCartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FB),
+      backgroundColor: cartBackground,
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: cartInk,
@@ -72,7 +82,6 @@ class ShoppingCartPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Introduction
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
@@ -92,9 +101,7 @@ class ShoppingCartPage extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 7),
-
                   const Text(
                     'Ready for checkout',
                     style: TextStyle(
@@ -103,20 +110,15 @@ class ShoppingCartPage extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-
                   const SizedBox(height: 3),
-
                   const Text(
                     'Review your items before placing your order.',
-                    style: TextStyle(color: Color(0xFF66718B), fontSize: 12),
+                    style: TextStyle(color: cartSubtext, fontSize: 12),
                   ),
-
                   const SizedBox(height: 15),
-
-                  // Delivery card
                   Container(
                     padding: const EdgeInsets.all(12),
-                    decoration: _cardDecoration(),
+                    decoration: cartCardDecoration,
                     child: Row(
                       children: [
                         const Icon(
@@ -141,7 +143,7 @@ class ShoppingCartPage extends StatelessWidget {
                               Text(
                                 'Matina, Davao City',
                                 style: TextStyle(
-                                  color: Color(0xFF64708A),
+                                  color: cartSubtext,
                                   fontSize: 11,
                                 ),
                               ),
@@ -156,10 +158,7 @@ class ShoppingCartPage extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 17),
-
-                  // Order heading
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -173,45 +172,32 @@ class ShoppingCartPage extends StatelessWidget {
                       ),
                       Text(
                         '3 items',
-                        style: TextStyle(
-                          color: Color(0xFF64708A),
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: cartSubtext, fontSize: 12),
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 9),
-
-                  // Product cards
                   const CartItemCard(
                     productName: 'Wireless Mouse',
                     price: 450,
                     quantity: 1,
                     icon: Icons.mouse_outlined,
                   ),
-
                   const SizedBox(height: 8),
-
                   const CartItemCard(
                     productName: 'USB-C Hub',
                     price: 850,
                     quantity: 1,
                     icon: Icons.hub_outlined,
                   ),
-
                   const SizedBox(height: 8),
-
                   const CartItemCard(
                     productName: 'Laptop Stand',
                     price: 700,
                     quantity: 1,
                     icon: Icons.laptop_mac_outlined,
                   ),
-
                   const SizedBox(height: 12),
-
-                  // Discount banner
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -240,7 +226,7 @@ class ShoppingCartPage extends StatelessWidget {
                               Text(
                                 '10% discount on items',
                                 style: TextStyle(
-                                  color: Color(0xFF64708A),
+                                  color: cartSubtext,
                                   fontSize: 11,
                                 ),
                               ),
@@ -251,17 +237,14 @@ class ShoppingCartPage extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 10),
-
-                  // Payment summary
                   Container(
                     padding: const EdgeInsets.all(13),
-                    decoration: _cardDecoration(),
-                    child: Column(
+                    decoration: cartCardDecoration,
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Payment Summary',
                           style: TextStyle(
                             color: cartInk,
@@ -269,29 +252,18 @@ class ShoppingCartPage extends StatelessWidget {
                             fontWeight: FontWeight.w800,
                           ),
                         ),
-
-                        const SizedBox(height: 8),
-
-                        _summaryRow('Subtotal', 'PHP 2,000.00'),
-
-                        const SizedBox(height: 5),
-
-                        _summaryRow('Discount (10%)', '- PHP 200.00'),
-
-                        const SizedBox(height: 5),
-
-                        _summaryRow('Delivery Fee', 'PHP 50.00'),
-
-                        const Divider(height: 18, color: cartBorder),
-
-                        _summaryRow('Total', 'PHP 1,850.00', isTotal: true),
+                        SizedBox(height: 8),
+                        _SummaryRow('Subtotal', 'PHP 2,000.00'),
+                        SizedBox(height: 5),
+                        _SummaryRow('Discount (10%)', '- PHP 200.00'),
+                        SizedBox(height: 5),
+                        _SummaryRow('Delivery Fee', 'PHP 50.00'),
+                        Divider(height: 18, color: cartBorder),
+                        _SummaryRow('Total', 'PHP 1,850.00', isTotal: true),
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 12),
-
-                  // Place Order button
                   SizedBox(
                     width: double.infinity,
                     height: 46,
@@ -321,35 +293,8 @@ class ShoppingCartPage extends StatelessWidget {
       ),
     );
   }
-
-  // Reusable card styling
-  BoxDecoration _cardDecoration() {
-    return BoxDecoration(
-      color: Colors.white,
-      border: Border.all(color: cartBorder),
-      borderRadius: BorderRadius.circular(10),
-    );
-  }
-
-  // Reusable payment summary row
-  Widget _summaryRow(String label, String amount, {bool isTotal = false}) {
-    final style = TextStyle(
-      color: cartInk,
-      fontSize: isTotal ? 14 : 12,
-      fontWeight: isTotal ? FontWeight.w800 : FontWeight.w400,
-    );
-
-    return Row(
-      children: [
-        Expanded(child: Text(label, style: style)),
-        const SizedBox(width: 8),
-        Text(amount, style: style),
-      ],
-    );
-  }
 }
 
-// Reusable StatelessWidget for cart items
 class CartItemCard extends StatelessWidget {
   const CartItemCard({
     super.key,
@@ -368,15 +313,10 @@ class CartItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(9),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: cartBorder),
-        borderRadius: BorderRadius.circular(10),
-      ),
+      decoration: cartCardDecoration,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Product icon
           Container(
             width: 54,
             height: 65,
@@ -385,12 +325,9 @@ class CartItemCard extends StatelessWidget {
               color: cartPaleBlue,
               borderRadius: BorderRadius.circular(9),
             ),
-            child: Icon(icon, color: const Color(0xFF175497), size: 32),
+            child: Icon(icon, color: cartIconBlue, size: 32),
           ),
-
           const SizedBox(width: 10),
-
-          // Product details
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -403,9 +340,7 @@ class CartItemCard extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-
                 const SizedBox(height: 2),
-
                 Text(
                   'PHP ${price.toStringAsFixed(2)}',
                   style: const TextStyle(
@@ -414,18 +349,15 @@ class CartItemCard extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-
                 const SizedBox(height: 7),
-
-                // Quantity controls
                 Row(
                   children: [
-                    _quantityButton(
-                      Icons.remove,
-                      'Decrease $productName',
-                      () => debugPrint('Decrease quantity: $productName'),
+                    _QuantityButton(
+                      icon: Icons.remove,
+                      tooltip: 'Decrease $productName',
+                      onPressed: () =>
+                          debugPrint('Decrease quantity: $productName'),
                     ),
-
                     SizedBox(
                       width: 36,
                       child: Text(
@@ -438,24 +370,22 @@ class CartItemCard extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    _quantityButton(
-                      Icons.add,
-                      'Increase $productName',
-                      () => debugPrint('Increase quantity: $productName'),
+                    _QuantityButton(
+                      icon: Icons.add,
+                      tooltip: 'Increase $productName',
+                      onPressed: () =>
+                          debugPrint('Increase quantity: $productName'),
                     ),
                   ],
                 ),
               ],
             ),
           ),
-
-          // Delete button
           IconButton(
             tooltip: 'Remove $productName',
             onPressed: () => debugPrint('Remove item: $productName'),
             icon: const Icon(Icons.delete_outline, size: 19),
-            color: const Color(0xFF707988),
+            color: cartIconMuted,
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(minWidth: 30, minHeight: 30),
           ),
@@ -463,13 +393,46 @@ class CartItemCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  // Reusable plus and minus button
-  Widget _quantityButton(
-    IconData icon,
-    String tooltip,
-    VoidCallback onPressed,
-  ) {
+class _SummaryRow extends StatelessWidget {
+  const _SummaryRow(this.label, this.amount, {this.isTotal = false});
+
+  final String label;
+  final String amount;
+  final bool isTotal;
+
+  @override
+  Widget build(BuildContext context) {
+    final style = TextStyle(
+      color: cartInk,
+      fontSize: isTotal ? 14 : 12,
+      fontWeight: isTotal ? FontWeight.w800 : FontWeight.w400,
+    );
+
+    return Row(
+      children: [
+        Expanded(child: Text(label, style: style)),
+        const SizedBox(width: 8),
+        Text(amount, style: style),
+      ],
+    );
+  }
+}
+
+class _QuantityButton extends StatelessWidget {
+  const _QuantityButton({
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
     return Tooltip(
       message: tooltip,
       child: SizedBox(

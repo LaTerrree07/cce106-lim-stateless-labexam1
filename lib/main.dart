@@ -16,7 +16,7 @@ class CampusStoreApp extends StatelessWidget {
       title: 'Campus Store',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1769F3)),
+        colorScheme: ColorScheme.fromSeed(seedColor: cartBlue),
       ),
       home: const ShoppingCartPage(),
     );
